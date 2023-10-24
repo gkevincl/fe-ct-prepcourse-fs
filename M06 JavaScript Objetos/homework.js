@@ -7,6 +7,13 @@ function crearGato(nombre, edad) {
    // La propiedad "meow" será una función que retorne el string: "Meow!".
    // Retornar el objeto.
    // Tu código:
+
+var objetazo = {} 
+objetazo['nombre'] = nombre;
+objetazo['edad'] = edad;
+objetazo['meow'] = function () {return 'Meow!'}
+
+return objetazo
 }
 
 function nuevoUsuario(nombre, email, password) {
@@ -14,6 +21,9 @@ function nuevoUsuario(nombre, email, password) {
    // Este debe tener las propiedades: "nombre", "email" y "password" con sus respectivos valores.
    // Retornar el objeto.
    // Tu código:
+var newUserObject = {nombre:nombre, email:email, password:password}
+return newUserObject  
+
 }
 
 function agregarPropiedad(objeto, propiedad) {
@@ -22,6 +32,9 @@ function agregarPropiedad(objeto, propiedad) {
    // Esta propiedad será igual al valor `null`.
    // Retornar el objeto.
    // Tu código:
+    objeto[propiedad] = null
+   return objeto
+
 }
 
 function invocarMetodo(objeto, metodo) {
@@ -29,43 +42,61 @@ function invocarMetodo(objeto, metodo) {
    // Esta propiedad contiene una función en su interior. Debes invocarla/ejecutarla.
    // [NOTA]: no necesitar retornar nada.
    // Tu código:
+objeto[metodo]()
+
 }
 
 function multiplicarNumeroDesconocidoPorCinco(objetoMisterioso) {
    // El parámetro "objetoMisterioso" posee una propiedad con el nombre "numeroMisterioso".
    // Debes multiplicar este número por 5 y retornar el resultado.
    // Tu código:
-}
+
+   objetoMisterioso.numeroMisterioso = objetoMisterioso.numeroMisterioso * 5
+   return objetoMisterioso.numeroMisterioso 
+}//tener cuidado porque aquí cometí el error de juntar notaciones para consultar las propiedades, y además olvidé que cuando se multiplica no se guarda la info de nuevo en la variable. el valor de una llave se comporta como una variable
 
 function eliminarPropiedad(objeto, propiedad) {
    // El parámetro "propiedad" es una propiedad del objeto que recibes.
    // Debes eliminarla del objeto y retornarlo finalmente.
    // Tu código:
-}
+
+delete objeto[propiedad]
+return objeto
+
+}//aquí me ocurrió lo mismo, utilicé la notación por punto pero no sirve para este ejercicio delete objeto.propiedad; return objeto ERROR
+
 
 function tieneEmail(objetoUsuario) {
    // Verifica si el "objetoUsuario", en su propiedad "email", posee un valor definido.
    // En ese caso retornar true. Caso contrario, false.
    // Tu código:
-}
+   if (objetoUsuario.email !== undefined && objetoUsuario.email !== null){return true}
+else {return false}
+}// se recomienda usar esta forma de validar si una propiedad tiene un valor definido -- return objetoUsuario.email !== undefined; también se le agrega esto && objetoUsuario.email !== null porque descarta el null
 
 function tienePropiedad(objeto, propiedad) {
    // Verifica si el objeto recibido posee una propiedad con el mismo nombre que el parámetro "propiedad".
    // En ese caso retornar true. Caso contrario, false.
    // Tu código:
-}
+   if (objeto.hasOwnProperty(propiedad)){return true}
+else {return false}
+}// no es nesario hacer if, el método manda el return true-false
 
 function verificarPassword(objetoUsuario, password) {
    // Verifica si la propiedad "password" del "objetoUsuario" coincide con el parámetro "password".
    // En ese caso retornar true. Caso contrario, false.
    // Tu código:
-}
+   if (objetoUsuario['password'] === password){return true}
+else {return false}
+}//con dot notation sería objetoUsuario.password === password
 
 function actualizarPassword(objetoUsuario, nuevaPassword) {
    // Reemplaza la contrseña guardada en la propiedad "password" del "objetoUsuario".
    // La nueva contraseña la recibes por parámetro.
    // Retornar el objeto.
    // Tu código:
+   objetoUsuario['password'] = nuevaPassword
+   return objetoUsuario
 }
 
 function agregarAmigo(objetoUsuario, nuevoAmigo) {
@@ -73,6 +104,8 @@ function agregarAmigo(objetoUsuario, nuevoAmigo) {
    // Debes agregar el "nuevoAmigo" al final de este arreglo.
    // Retornar el objeto.
    // Tu código:
+   objetoUsuario['amigos'].push(nuevoAmigo)
+   return objetoUsuario
 }
 
 function pasarUsuarioAPremium(objetoMuchosUsuarios) {
@@ -81,7 +114,13 @@ function pasarUsuarioAPremium(objetoMuchosUsuarios) {
    // Define esta propiedad de todos los usuarios como true.
    // Retornar el arreglo.
    // Tu código:
-}
+
+   for(var i = 0; i < objetoMuchosUsuarios.length; i++){
+      objetoMuchosUsuarios[i].esPremium = true;
+   }
+   return objetoMuchosUsuarios;
+
+}// buenísimo para aprender a editar los valores de una propiedad de un objeto que está dentro de un array
 
 function sumarLikesDeUsuario(objetoUsuario) {
    // El parámetro "objetoUsuario" tiene una propiedad llamada "posts" que es un arreglo.
@@ -89,6 +128,13 @@ function sumarLikesDeUsuario(objetoUsuario) {
    // Cada post posee una propiedad llamada "likes". Esta propiedad es un número.
    // Debes sumar los likes de todos los post y retornar el resultado.
    // Tu código:
+//sumar likes que están dentro de todos los posts
+
+   var suma = 0;
+   for(var i = 0; i < objetoUsuario.posts.length; i++)
+   {suma = suma + objetoUsuario.posts[i].likes;}
+   return suma
+
 }
 
 function agregarMetodoCalculoDescuento(objetoProducto) {
@@ -102,6 +148,15 @@ function agregarMetodoCalculoDescuento(objetoProducto) {
    // PorcentajeDeDescuento ---> 0.2
    // Precio final ---> 8
    // Tu código:
+   var valorDeDescuento = 0
+   var precioFinal = 0
+   objetoProducto['calcularPrecioDescuento'] = function () {
+      valorDeDescuento = objetoProducto['precio'] * objetoProducto['porcentajeDeDescuento']
+      precioFinal = objetoProducto['precio'] - valorDeDescuento
+      return precioFinal
+   }
+   return objetoProducto
+
 }
 
 /*⚠️ NO MODIFIQUES NADA DEBAJO DE ESTO ⚠️*/
